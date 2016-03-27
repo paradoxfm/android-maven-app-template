@@ -5,104 +5,80 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.megazlo</groupId>
-    <artifactId>andriod-template</artifactId>
+    <artifactId>and</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>apk</packaging>
 
     <properties>
-        <junit.ver>4.12</junit.ver>
-        <android.lib.ver>4.1.1.4</android.lib.ver>
-        <android.plugin.version>4.3.0</android.plugin.version>
-        <androidannotations.ver>3.3.2</androidannotations.ver>
-        <lombok.ver>1.16.6</lombok.ver>
-        <android.sdk.path>C:\progs\android-sdk-windows</android.sdk.path>
-
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <google.ver>4.1.1.4</google.ver>
+        <android.mvn.ver>4.4.1</android.mvn.ver>
+        <annotations.ver>4.0.0</annotations.ver>
+        <lombok.ver>1.16.8</lombok.ver>
+        <android.sdk.path>E:\Program\android-sdk-windows</android.sdk.path>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.ver}</version>
-            <scope>test</scope>
+            <groupId>com.google.android</groupId>
+            <artifactId>android</artifactId>
+            <version>${google.ver}</version>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.google.android</groupId>
-            <artifactId>android</artifactId>
-            <version>${android.lib.ver}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>${lombok.ver}</version>
+            <artifactId>android-test</artifactId>
+            <version>${google.ver}</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>org.androidannotations</groupId>
             <artifactId>androidannotations</artifactId>
-            <version>${androidannotations.ver}</version>
+            <version>${annotations.ver}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.androidannotations</groupId>
             <artifactId>androidannotations-api</artifactId>
-            <version>${androidannotations.ver}</version>
+            <version>${annotations.ver}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.ver}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
-    <scm>
-        <!-- заглушка для buildnumber-maven-plugin -->
-        <connection>scm:svn:http://127.0.0.1/dummy</connection>
-        <developerConnection>scm:svn:https://127.0.0.1/dummy</developerConnection>
-        <tag>HEAD</tag>
-        <url>http://127.0.0.1/dummy</url>
-    </scm>
-
     <build>
-        <finalName>${project.artifactId}.${project.version}.${buildNumber}</finalName>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>com.simpligility.maven.plugins</groupId>
+                    <artifactId>android-maven-plugin</artifactId>
+                    <version>${android.mvn.ver}</version>
+                    <extensions>true</extensions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
         <plugins>
             <plugin>
+                <!--https://github.com/simpligility/android-maven-plugin/tree/master/src/test/projects-->
                 <groupId>com.simpligility.maven.plugins</groupId>
                 <artifactId>android-maven-plugin</artifactId>
-                <version>${android.plugin.version}</version>
                 <configuration>
                     <sdk>
-                        <platform>16</platform>
+                        <platform>15</platform>
                     </sdk>
-                    <undeployBeforeDeploy>true</undeployBeforeDeploy>
-                    <genDirectory>gen</genDirectory>
-                </configuration>
-                <extensions>true</extensions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>buildnumber-maven-plugin</artifactId>
-                <version>1.3</version>
-                <executions>
-                    <execution>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>create</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <format>{0,number}</format>
-                    <items>
-                        <item>buildNumber0</item>
-                    </items>
+                    <androidManifestFile>${basedir}/AndroidManifest.xml</androidManifestFile>
+                    <resourceDirectory>${basedir}/res</resourceDirectory>
                 </configuration>
             </plugin>
-
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>3.5.1</version>
                 <configuration>
                     <source>1.6</source>
                     <target>1.6</target>
@@ -110,4 +86,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>
